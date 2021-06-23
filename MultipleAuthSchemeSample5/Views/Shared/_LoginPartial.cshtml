@@ -1,0 +1,29 @@
+@using System.Security.Principal
+@using System.Security.Claims
+
+@if (User.Identity.IsAuthenticated)
+{
+    var identity = User.Identity as ClaimsIdentity;
+    var name = identity.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+
+    <ul class="nav navbar-nav flex-grow-1">
+        <li class="navbar-text">@name</li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign out AAD</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut" asp-route-scheme="B2C">Sign out B2C</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in AAD</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn" asp-route-scheme="B2C">Sign in B2C</a>
+        </li>
+    </ul>
+}

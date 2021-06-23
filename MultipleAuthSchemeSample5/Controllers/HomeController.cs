@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MultipleAuthSchemeSample5.Models;
 using System;
@@ -19,6 +20,12 @@ namespace MultipleAuthSchemeSample5.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize(AuthenticationSchemes = "B2C,OpenIdConnect")]
+        public IActionResult Authorized()
         {
             return View();
         }
